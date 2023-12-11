@@ -63,6 +63,10 @@ class llm:
         Returns:
             list: The context window to be sent to the LLM.
         """
+        # The chat history is summarized only when the token threshold is exceeded.
+        # This approach helps to avoid unnecessary computation for summarization and
+        # ensures that the most recent messages remain fully intact in the context window.
+        # The threshold can be adjusted as required.
         if self.calculate_total_tokens(self.summarized_message_history) >= self.token_threshold_to_trigger_summarization:
             if self.DEBUG:
                 print(f"\033[91m  Token threshold exceeded, triggering summarization \033[0m")
